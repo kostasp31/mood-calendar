@@ -1,0 +1,31 @@
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+td {
+  width: 30px;
+  height: 30px;
+}
+
+th {
+  width: 30px;
+  height: 30px;
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0%;
+}
+
+.color-label {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
+
+.footer {
+  color: 'red'
+}
