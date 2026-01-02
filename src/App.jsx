@@ -64,7 +64,7 @@ function App() {
     }
   }, []);
 
-  const changeMood = (month, day) => {
+  const changeMood = (event, month, day) => {
     let newMoods = JSON.parse(JSON.stringify(moods));
 
     const currentMood = newMoods[month][day];
@@ -100,13 +100,13 @@ function App() {
           <tbody>
             {Array.from(Array(31).keys()).map((day, index) => 
               <tr key={index}>
-                <th>
+                <th className='numbers-th'>
                   {day+1}
                 </th>
                 
                 {
                   Array.from(Array(12).keys()).map((month, index) => 
-                    <td key={index} onClick={() => changeMood(month, day)} 
+                    <td key={index} onClick={(e) => changeMood(e, month, day)} 
                     style={{
                       border: moods[month]?.[day]?.mood !== undefined ? `1px solid ${theme === 'dark' ? '#ececec' : '#242424'}` : 'none',
                       background: moods[month]?.[day]?.mood ? colors[moods[month]?.[day]?.mood - 1]?.color : theme === 'light' ? '#ececec' : '#242424'
@@ -121,7 +121,7 @@ function App() {
           </tbody>
         </table>
 
-        <div style={{display: 'flex', flexDirection: 'column' ,justifyContent: 'center', marginLeft: '50px'}}>
+        <div className='color-legend'>
           {colors.map((color, index) => 
             <div key={index} style={{display: 'flex', alignItems: 'center', gap: '10px', marginTop: '-20px'}}>
               <div className='color-label' style={{ background: color.color }} />
