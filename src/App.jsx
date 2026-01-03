@@ -91,11 +91,7 @@ function App() {
               <React.Fragment key={dayIndex}>
                 {Array.from({ length: 13 }).map((_, _monthIndex) => {
                   return (
-                    <div className='calendar-item calendar-month' key={`${_monthIndex}-${dayIndex}`}
-                      style={{
-                        width: '40px',
-                        height: '40px'
-                      }}>
+                    <div className='calendar-item calendar-month' key={`${_monthIndex}-${dayIndex}`}>
                       {_monthIndex === 0 ? '' : months?.[_monthIndex - 1]?.substring(0, 2)}
                     </div>
                   );
@@ -110,11 +106,7 @@ function App() {
 
                   if (monthIndex === -1) {
                     return (
-                      <div className='calendar-item calendar-day' key={`${monthIndex}-${dayIndex}`}
-                        style={{
-                          width: '40px',
-                          height: '40px'
-                        }}>
+                      <div className='calendar-item calendar-day' key={`${monthIndex}-${dayIndex}`}>
                         {dayIndex}
                       </div>
                     )
@@ -123,8 +115,6 @@ function App() {
                       return (
                         <div className='calendar-item calendar-mood-box' key={`${monthIndex}-${dayIndex - 1}`} onClick={(e) => changeMood(e, monthIndex, dayIndex - 1)}
                           style={{
-                            width: '40px',
-                            height: '40px',
                             animationDelay: `${Math.round((2000 / 31) * Math.round(Math.random() * dayIndex))}ms`,
                             background: moods[monthIndex]?.[dayIndex - 1]?.mood ? colors[moods[monthIndex]?.[dayIndex - 1]?.mood - 1]?.color : theme === 'light' ? '#ececec' : '#242424'
                           }}>
@@ -134,12 +124,7 @@ function App() {
                     }
                     else
                       return (
-                        <div className='calendar-item calendar-empty' key={`${monthIndex}-${dayIndex - 1}`}
-                          style={{
-                            width: '40px',
-                            height: '40px',
-                            background: 'transparent'
-                          }} />)
+                        <div className='calendar-item calendar-empty' key={`${monthIndex}-${dayIndex - 1}`} />)
                   }
                 }
                 )}
