@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { CalendarContext } from "./contexts/CalendarContext";
+
 export default function Title() {
+  const { lang } = useContext(CalendarContext);
+
   return (
     <div
       style={{
@@ -187,7 +192,7 @@ export default function Title() {
           </defs>
         </g>
       </svg>
-      <h2>Mood calendar</h2>
+      <h2>{lang === "el-GR" ? "Ημερολόγιο διάθεσης" : "Mood calendar"}</h2>
     </div>
   );
 }

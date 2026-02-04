@@ -86,14 +86,39 @@ th.numbers-th {
 } */
 
 .color-legend {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
+  border-radius: 10px;
+  color: black;
+  width: fit-content;
+  height: fit-content;
+  z-index: 100;
+}
+
+.color-label {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
+
+.color-legend-flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  margin-top: -5px;
+  margin-bottom: -5px;
 }
 
 .color-select-popup {
   padding: 8px 10px;
-  position: absolute;
+  position: fixed;
   z-index: 100;
   transform: translateX(-50%);
   display: flex;
@@ -127,12 +152,6 @@ th.numbers-th {
   height: 100%;
   background: #a84242;
   transform: rotate(45deg);
-}
-
-.color-label {
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
 }
 
 .footer {

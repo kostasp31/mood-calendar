@@ -3,6 +3,8 @@ import { CalendarContext } from "./contexts/CalendarContext";
 import "./App.css";
 
 import ChangeTheme from "./ChangeTheme";
+import Help from "./Help";
+import HelpOverlay from "./HelpOverlay";
 import Footer from "./Footer";
 import Title from "./Title";
 import ChangeColorPopup from "./ChangeColorPopup";
@@ -16,61 +18,13 @@ function App() {
     popupPosition,
     setPopupPosition,
     setSelectedDate,
-    lang,
+    helpOpen,
+    months,
+    colors
   } = useContext(CalendarContext);
 
   let date = new Date();
   let year = date.getFullYear();
-
-  const months_en = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const months_el = [
-    "Ιανουάριος",
-    "Φεβρουάριος",
-    "Μάρτιος",
-    "Απρίλιος",
-    "Μάιος",
-    "Ιούνιος",
-    "Ιούλιος",
-    "Αύγουστος",
-    "Σεπτέμβριος",
-    "Οκτώβριος",
-    "Νοέμβριος",
-    "Δεκέμβριος",
-  ];
-  const months = lang === "el-GR" ? months_el : months_en;
-
-  const colors = [
-    {
-      index: 1,
-      mood: lang === "el-GR" ? "ΑΠΑΙΣΙΑ" : "TERRIBLE",
-      color: "#4B5563",
-    },
-    { index: 2, mood: lang === "el-GR" ? "ΚΑΚΗ" : "BAD", color: "#9CA3AF" },
-    {
-      index: 3,
-      mood: lang === "el-GR" ? "ΜΕΤΡΙΑ" : "NEUTRAL",
-      color: "#FDE68A",
-    },
-    { index: 4, mood: lang === "el-GR" ? "ΚΑΛΗ" : "GOOD", color: "#86EFAC" },
-    {
-      index: 5,
-      mood: lang === "el-GR" ? "ΤΕΛΕΙΑ" : "PERFECT",
-      color: "#93C5FD",
-    },
-  ];
 
   useEffect(() => {
     const cachedData = localStorage.getItem("mood-calendar-data");
@@ -97,7 +51,7 @@ function App() {
 
     localStorage.setItem(
       "mood-calendar-data",
-      JSON.stringify({ [year]: _moods })
+      JSON.stringify({ [year]: _moods }),
     );
 
     setMoods(_moods);
@@ -111,11 +65,11 @@ function App() {
         "--text-color",
         cachedTheme === "light"
           ? "rgba(29, 29, 29, 0.87)"
-          : "rgba(255, 255, 255, 0.87)"
+          : "rgba(255, 255, 255, 0.87)",
       );
       document.documentElement.style.setProperty(
         "--bg-color",
-        cachedTheme === "light" ? "#ececec" : "#242424"
+        cachedTheme === "light" ? "#ececec" : "#242424",
       );
     } else {
       localStorage.setItem("mood-calendar-theme", "light");
@@ -144,6 +98,11 @@ function App() {
     setSelectedDate({ month: month, day: day });
   };
 
+  const currentDate = {
+    monthIndex: new Date().getMonth(),
+    dayIndex: new Date().getDate(),
+  };
+
   if (!moods) return;
 
   return (
@@ -157,6 +116,8 @@ function App() {
     >
       <Title />
       <ChangeTheme />
+      <Help />
+      {helpOpen && <HelpOverlay />}
       <ChangeColorPopup colors={colors} year={year} />
       <div className="parent-container">
         <div
@@ -207,15 +168,23 @@ function App() {
                           }
                           style={{
                             animationDelay: `${Math.round(
-                              (2000 / 31) * Math.round(Math.random() * dayIndex)
+                              (2000 / 31) *
+                                Math.round(Math.random() * dayIndex),
                             )}ms`,
                             background: moods[monthIndex]?.[dayIndex - 1]?.mood
                               ? colors[
                                   moods[monthIndex]?.[dayIndex - 1]?.mood - 1
                                 ]?.color
                               : theme === "light"
-                              ? "#ececec"
-                              : "#242424",
+                                ? "#ececec"
+                                : "#242424",
+                            border:
+                              currentDate.monthIndex === monthIndex &&
+                              currentDate.dayIndex === dayIndex
+                                ? `2px solid ${
+                                    theme === "light" ? "#bafdff" : "#bafdff"
+                                  }`
+                                : "",
                           }}
                         >
                           {/* {moods[monthIndex]?.[dayIndex - 1]?.mood ?? null} */}
@@ -231,18 +200,9 @@ function App() {
                   }
                 })}
               </React.Fragment>
-            )
+            ),
           )}
         </div>
-
-        {/* <div className='color-legend'>
-          {colors.map((color, index) =>
-            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '-20px' }}>
-              <div className='color-label' style={{ background: color.color }} />
-              <p>{color.mood}</p>
-            </div>
-          )}
-        </div> */}
       </div>
       <Footer />
     </div>

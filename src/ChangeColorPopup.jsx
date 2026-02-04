@@ -35,6 +35,7 @@ export default function ChangeColorPopup({ colors, year }) {
     >
       {colors.map((cl) => (
         <div // a color for each mood
+          key={cl.index}
           className="popup-color-option"
           style={{
             background: cl.color,
