@@ -27,8 +27,8 @@ export default function ChangeTheme() {
       onClick={changeTheme}
       style={{
         position: "absolute",
-        top: "32px",
-        right: "32px",
+        top: "24px",
+        right: "24px",
         cursor: "pointer",
         /*border: `2px solid ${iconColor}`,*/ padding: "5px",
         paddingBottom: "0px",
